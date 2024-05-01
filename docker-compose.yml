@@ -18,3 +18,8 @@ services:
     image: mongo:7-jammy
     ports:
       - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  mongodata:
