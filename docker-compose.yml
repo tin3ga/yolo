@@ -4,6 +4,8 @@ services:
     image: tinegagideon/yolo-frontend:1.0.0
     ports:
       - "3000:3000"
+    networks:
+      - frontend
 
   backend:
     image: tinegagideon/yolo-backend:1.0.0
@@ -13,6 +15,8 @@ services:
       - "5000:5000"
     depends_on:
       - mongodb
+    networks:
+      - backend
 
   mongodb:
     image: mongo:7-jammy
@@ -20,6 +24,14 @@ services:
       - "27017:27017"
     volumes:
       - mongodata:/data/db
+    networks:
+      - backend
 
 volumes:
   mongodata:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
