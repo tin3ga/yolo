@@ -54,6 +54,10 @@ Using separate networks for the frontend and backend ensures that components are
 
 iii. Use of Environment Variables
 
-Environment variables like MONGODB_URI is set up in the backend service, this decouples configuration details from code, allowing for more flexible deployments and configurations without the need for code changes.
+Environment variables like MONGODB_URI are set up in the backend service, this decouples configuration details from code, allowing for more flexible deployments and configurations without the need for code changes.
 
 ## Screenshots of deployed images on DockerHub
+
+![dockerhub-screenshot](https://raw.githubusercontent.com/tin3ga/yolo/master/images/Screenshot%20from%202024-05-04%2021-45-33.png)
+![dockerhub-screenshot](https://raw.githubusercontent.com/tin3ga/yolo/master/images/Screenshot%20from%202024-05-04%2021-45-05.png)
+
