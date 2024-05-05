@@ -6,13 +6,43 @@ The Docker images use node:22-alpine3.18, which is a minimal version of Node.js 
 
 ## Dockerfile directives
 
+### frontend
+
+This Dockerfile is structured in a multi-stage build: first, it builds a Node.js application, and then it prepares a production image using Nginx.
+
+#### STAGE 1 : Building app
+
+`FROM node:22-alpine3.18 as builder` : Specifies the base image to use for the Docker image
+
+`WORKDIR /yolo-frontend`: Sets the working directory in the Docker container.
+
+`COPY package*.json /yolo-frontend`: Copies files from the local file system into the Docker container.
+
+`RUN npm install` : Reads the package.json file and downloads all the necessary packages from npm registry.
+
+`COPY . .` : Copies all files and directories from the project directory on the host into the current working directory of the Docker image.
+
+`RUN npm run build` : Run the build script defined in package.json.
+
+#### STAGE 2 : Creating production image
+
+`FROM nginx:latest` : Start a new build stage from the Nginx base image.
+
+`COPY --from=builder /yolo-frontend/build /usr/share/nginx/html`: Copy the static content from the build directory of the first stage to the Nginx container.
+
+`EXPOSE 80` : Expose port 80, This is the default port that Nginx listens on.
+
+`CMD ["nginx", "-g", "daemon off;"]` : Start Nginx in the foreground.
+
+### backend
+
 `FROM node:22-alpine3.18` : Specifies the base image to use for the Docker image
 
 `WORKDIR /yolo-backend`: Sets the working directory in the Docker container. Created automatically if it does not exist.
 
 `COPY package*.json /yolo-backend`: Copies files from the local file system into the Docker container.
 
-`RUN npm install` : Executes command inside the container
+`RUN npm install` : EReads the package.json file and downloads all the necessary packages from npm registry.
 
 `COPY . .` : Copies all files and directories from the project directory on the host into the current working directory of the Docker image
 
@@ -60,4 +90,3 @@ Environment variables like MONGODB_URI are set up in the backend service, this d
 
 ![dockerhub-screenshot](https://raw.githubusercontent.com/tin3ga/yolo/master/images/Screenshot%20from%202024-05-04%2021-45-33.png)
 ![dockerhub-screenshot](https://raw.githubusercontent.com/tin3ga/yolo/master/images/Screenshot%20from%202024-05-04%2021-45-05.png)
-
