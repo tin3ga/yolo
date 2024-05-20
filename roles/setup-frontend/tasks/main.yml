@@ -1,0 +1,22 @@
+---
+# tasks file for setup-frontend
+- name: "Create docker network: {{ network_name }}"
+  ansible.builtin.docker_network:
+    name: "{{ network_name }}"
+    driver: bridge
+
+- name: "pull {{ image }}:{{ image_tag }}"
+  ansible.builtin.docker_image:
+    name: "{{ image }}"
+    tag: "{{ image_tag }}"
+    source: pull
+
+- name: "create {{ container_name }} container"
+  ansible.builtin.docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image }}:{{ image_tag }}"
+    auto_remove: yes
+    detach: yes
+    ports: "{{ container_ports }}"
+    networks:
+      - name: "{{ network_name }}"
