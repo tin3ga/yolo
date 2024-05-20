@@ -6,3 +6,4 @@
     - role: test-connectivity
     - role: update-server
     - role: install-docker
+    - role: clone-repo

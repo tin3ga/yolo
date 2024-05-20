@@ -1,0 +1,5 @@
+---
+# vars file for clone-repo
+
+github_repo: https://github.com/tin3ga/yolo
+destination: src

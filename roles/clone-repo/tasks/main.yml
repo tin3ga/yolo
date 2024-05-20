@@ -1,0 +1,9 @@
+---
+# tasks file for clone-repo
+
+- name: Clone a github repository
+  ansible.builtin.git:
+    repo: "{{ github_repo }}"
+    dest: "{{ destination }}"
+    single_branch: yes
+    version: master
