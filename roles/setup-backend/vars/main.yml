@@ -1,0 +1,4 @@
+---
+# vars file for setup-backend
+image: tinegagideon/yolo-backend
+image_tag: 1.0.0

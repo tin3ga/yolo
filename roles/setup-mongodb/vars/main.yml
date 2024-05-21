@@ -1,0 +1,4 @@
+---
+# vars file for setup-mongodb
+image: mongo
+image_tag: 7-jammy
