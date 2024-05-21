@@ -2,8 +2,3 @@
 # vars file for setup-frontend
 image: tinegagideon/yolo-frontend
 image_tag: 2.0.0
-
-container_name: frontend
-container_ports: 80:80
-
-network_name: frontend
