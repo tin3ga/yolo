@@ -8,3 +8,6 @@
     - role: install-docker
     - role: clone-repo
     - role: setup-frontend
+    - role: setup-mongodb
+    - role: setup-backend
+    - role: run-docker-compose
