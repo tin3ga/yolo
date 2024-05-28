@@ -1,0 +1,52 @@
+---
+name: Publish Docker images
+
+on:
+  push:
+    branches:
+      - master
+env:
+  REGISTRY: docker.io
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ["client", "backend"]
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Read version from package.json file
+        id: package-version
+        run: echo "::set-output name=version::$(jq -r .version ./${{ matrix.dir }}/package.json)"
+
+      - name: Docker Metadata for Final Image Build
+        id: docker_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USER }}/yolo-${{ matrix.dir }}
+          tags: |
+            type=raw,value=${{ steps.package-version.outputs.version }}
+
+      - name: Docker Build and Push to Docker Hub
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ matrix.dir }}
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          # labels: ${{ steps.meta.outputs.labels }}
