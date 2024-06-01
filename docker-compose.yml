@@ -1,7 +1,7 @@
 # version: "3.8"
 services:
   frontend:
-    image: tinegagideon/yolo-frontend:2.0.0
+    image: tinegagideon/yolo-client:1.0.0
     ports:
       - "80:80"
     networks:
