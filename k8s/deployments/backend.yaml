@@ -22,8 +22,11 @@ spec:
         - containerPort: 5000
         env:
           - name: MONGODB_URI
-            value: mongodb://mongodb-service:27017/  
-   
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGODB_URI
+        
 
 ---
 apiVersion: v1
