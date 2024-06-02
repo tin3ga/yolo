@@ -6,6 +6,8 @@ services:
       - "80:80"
     networks:
       - frontend
+    environment:
+      - API_BASE_URL=http://backend:5000
 
   backend:
     image: tinegagideon/yolo-backend:1.0.0

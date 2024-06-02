@@ -21,6 +21,12 @@ spec:
         ports:
         - containerPort: 80
 
+        env:
+          - name: API_BASE_URL 
+            value: http://yolo-backend-service:5000
+
+            
+
 ---
 apiVersion: v1
 kind: Service
