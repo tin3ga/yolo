@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: yolo-client
-        image: tinegagideon/yolo-client:1.0.0
+        image: tinegagideon/yolo-client:1.0.2
         resources:
           limits:
             memory: "128Mi"
@@ -22,7 +22,7 @@ spec:
         - containerPort: 80
 
         env:
-          - name: API_BASE_URL 
+          - name: REACT_APP_API_BASE_URL 
             value: http://yolo-backend-service:5000
 
             

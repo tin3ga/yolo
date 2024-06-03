@@ -65,7 +65,7 @@ import EditProductForm from './EditProductForm';
 // ]
 
 // Retrieve the base URL from environment variables
-const apiBaseUrl = process.env.API_BASE_URL;
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
 class ProductControl extends Component {
     
@@ -82,7 +82,7 @@ class ProductControl extends Component {
     }
     
     componentDidMount(){
-        axios.get('${apiBaseUrl}/api/products')
+        axios.get(`${apiBaseUrl}/api/products`)
             .then(res =>{
                 console.log(res)
                 this.setState({
@@ -161,14 +161,14 @@ class ProductControl extends Component {
         //     console.log(pair[0]+ ', ' + pair[1]); 
         // }       
         // console.log(...formData)
-        axios.post('${apiBaseUrl}/api/products', newProduct)
+        axios.post(`${apiBaseUrl}/api/products`, newProduct)
             .then(res => console.log(res.data))
         this.setState({
             formVisibleOnPage: false
         })
     };
     handleDeletingProduct = (id) =>{
-        axios.delete('${apiBaseUrl}/api/products/'+id)
+        axios.delete(`${apiBaseUrl}/api/products/`+id)
             .then(res => console.log(res.data))
             .catch((error) =>{
                 console.log(error)
@@ -188,7 +188,7 @@ class ProductControl extends Component {
     }
     handleEditingProduct = (editedProduct) =>{
 
-        axios.put('${apiBaseUrl}/api/products/' + this.state.selectedProduct._id, editedProduct)
+        axios.put(`${apiBaseUrl}/api/products/` + this.state.selectedProduct._id, editedProduct)
             .then(res =>console.log(res.data))
         
         this.setState({
