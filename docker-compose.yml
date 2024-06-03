@@ -1,13 +1,11 @@
 # version: "3.8"
 services:
   frontend:
-    image: tinegagideon/yolo-client:1.0.0
+    image: tinegagideon/yolo-client:1.0.2
     ports:
       - "80:80"
     networks:
       - frontend
-    environment:
-      - API_BASE_URL=http://backend:5000
 
   backend:
     image: tinegagideon/yolo-backend:1.0.0
