@@ -66,7 +66,7 @@ import EditProductForm from './EditProductForm';
 
 // Retrieve the base URL from environment variables
 // const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
-const apiBaseUrl = 'http:34.29.200.25:5000';
+const apiBaseUrl = 'http:34.71.208.227:5000';
 
 class ProductControl extends Component {
     constructor(props)  {
