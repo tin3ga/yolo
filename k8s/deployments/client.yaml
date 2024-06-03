@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: yolo-client
-        image: tinegagideon/yolo-client:1.0.2
+        image: tinegagideon/yolo-client:1.0.4
         resources:
           limits:
             memory: "128Mi"
