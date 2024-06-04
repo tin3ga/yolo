@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-backend
+spec:
+  selector:
+    matchLabels:
+      app: yolo-backend
+  template:
+    metadata:
+      labels:
+        app: yolo-backend
+    spec:
+      containers:
+      - name: yolo-backend
+        image: tinegagideon/yolo-backend:1.0.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+        env:
+          - name: MONGODB_URI
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGODB_URI
+        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-backend-service
+spec:
+  selector:
+    app: yolo-backend
+  ports:
+  - port: 5000
+    targetPort: 5000
+  type: LoadBalancer
