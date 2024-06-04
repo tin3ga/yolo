@@ -1,4 +1,4 @@
-# STAGE 1 : Building App
+# STAGE 1: Building the App
 
 FROM node:22-alpine3.18 as builder
 
@@ -19,13 +19,19 @@ RUN npm run build
 
 # STAGE 2: Create the production image
 
-FROM nginx:latest
+FROM node:22-alpine3.18
 
-# Copy the static content from the build directory of the first stage to the appropriate directory in the Nginx container.
-COPY --from=builder /yolo-frontend/build /usr/share/nginx/html
+# Set the working directory
+WORKDIR /yolo-frontend
 
-# Expose port 80 on the container
-EXPOSE 80
+# Copy the static content from the build directory of the first stage
+COPY --from=builder /yolo-frontend/build /yolo-frontend/build
 
-# Start Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Install a lightweight HTTP server (like serve) to serve the static files
+RUN npm install -g serve
+
+# Expose port 3000 on the container
+EXPOSE 3000
+
+# Start the HTTP server
+CMD ["serve", "-s", "build"]
